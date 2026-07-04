@@ -1,0 +1,195 @@
+ <head>
+	<title>FIRE</title>
+	<meta property="og:title" content="What Probing Reveals about Autonomous Driving:">
+	<meta property="og:description" content="Linking Internal Prediction Errors to Ego Planning">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript">
+		function toggle(id) {
+			var e = document.getElementById(id);
+			if(e.style.display == 'block')
+				e.style.display = 'none';
+			else
+				e.style.display = 'block';
+		}
+	</script>
+</head>
+<div class="header" id="top">
+	<h1><span class="bold mcolor">What Probing Reveals about Autonomous Driving: </span><br/>Linking Internal Prediction Errors to Ego Planning </h1>
+	<!-- <h3><a class="bold default-color">ICLR 2026 <b style="color:#E46060">Oral</b></span><br/></h3> -->
+	<table class="authors">
+		<tbody>
+			<tr>
+				<td>
+					<h4>
+						<a href="https://scholar.google.com/citations?user=qqM2jmkAAAAJ&hl=ko" class="nobreak">Hyeon-Chang Jeon</a><sup>1</sup>&ensp;
+						<a href="https://scholar.google.com/citations?user=QAkb7fgAAAAJ&hl=ko&oi=sra" class="nobreak">Kyungbeom Kim</a><sup>1</sup>&ensp;
+						<sup>†</sup><a href="https://www.eugenevinitsky.com/" class="nobreak">Eugene Vinitsky</a><sup>2</sup>&ensp;
+						<sup>†</sup><a href="https://cilab.gist.ac.kr/hp/people/" class="nobreak">Kyung-Joong Kim</a><sup>1</sup>&ensp;
+						
+						<div class="affiliations">
+							<br/>
+							<sup>1</sup> GIST&ensp;
+							<sup>2</sup> New York University&ensp;
+						</div>
+						<br/>
+						<span class="authors-affiliation" style="font-size: 0.95em;"><sup>†</sup>Equal advising</span>
+					</h4>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="links">
+		<a href="https://arxiv.org/pdf/2606.31106" class="btn"><i class="fa">&#xf1c1;</i>&ensp;Paper</a>
+		<a href="https://github.com/CILAB-MA/gpudrive_lab/tree/cilab/il_new" class="btn"><i class="fa fa-github"></i>&ensp;Code</a>
+	</div>
+</div>
+<div class="content">
+	<div class="tldr-hr"></div>
+	<div class="tldr-container">
+		<h2>TL;DR</h2> 
+		<p class="tldr-content">
+			Stop worrying about plasticity loss, <span class="bold">just apply <span class="bold mcolor">FIRE</span> before training on new data</span>.
+		</p>
+	</div>
+	<div class="hr"></div>
+	<div class="figure" style="height: 600px; background-image: url(images/overview.png);"></div>
+	<div style="margin: auto; margin-top: -24px;">
+		<p>
+			<span class="bold mcolor">Overview.</span> <span class="bold">
+			</span>FIRE</span> balances stability and plasticity in a principled manner via constarined optimization.
+			<span class="bold"> (a) FIRE well balances stability-plasticity in continual visual learning:</span>
+			Stability and plasticity across diverse architectures and datasets, including CIFAR-10 with ResNet-18, CIFAR-100 with ViT-Tiny, and Tiny ImageNet with VGG-16.
+			<span class="bold">(b) FIRE well balances stability-plasticity in continual pretraining of LLMs:</span>
+			GPT-0.1B was trained on WikiText-103 and OpenWebText. From left to right, results correspond to models initialized from the best checkpoint during pretraining, from 30k pretraining iterations, and from 60k pretraining iterations.
+			<span class="bold">(c) FIRE well balances stability-plasticity in reinforcement learning:</span>
+			continuous control with SAC on three HumanoidBench tasks. The black dashed line indicates the point at which reinitialization is applied.
+		</p>
+	</div>
+	<div class="hr"></div>
+	<div>
+		<h2>Abstract</h2>
+		<p class="abstract">
+			We propose <span class="bold mcolor">FIRE</span>, a principled reinitialization method that explicitly balances the stability-plasticity tradeoff. FIRE quantifies stability through Squared Frobenius Error (SFE), measuring proximity to past weights, and plasticity through Deviation from Isometry (DfI), reflecting weight isotropy. The reinitialization point is obtained by solving a constrained optimization problem, minimizing SFE subject to DfI being zero, which is efficiently approximated by Newton-Schulz iteration. FIRE is evaluated on continual visual learning (CIFAR-10 with ResNet-18), language modeling (OpenWebText with GPT-0.1B), and reinforcement learning (HumanoidBench with SAC and Atari games with DQN). Across all domains, FIRE consistently outperforms both naive training without intervention and standard reinitialization methods, demonstrating effective balancing of the stability-plasticity tradeoff.
+		</p>
+	</div>
+	<div class="hr"></div>
+	<div>
+		<h2>FIRE Algorithm</h2>
+		<div class="figure" style="height: 200px; background-image: url(images/fire_algorithm.png);"></div>
+		<div style="margin: auto;">
+		<p class="architecture">
+			<span class="bold">(a) Illustration of FIRE:</span> Solving a constrained optimization problem, FIRE places weights at the intersection of high-stability and high-plasticity manifolds. The solution to the constrained optimization problem is the nearest semi-orthogonal weight matrix.
+			<span class="bold">(b) Algorithm of FIRE:</span> FIRE approximates this solution via the Newton-Schulz iteration, orthogonalizing the neural network weights after training on the current dataset and before learning on a new one.
+		</p>
+	</div>
+	<div class="hr"></div>
+	<div>
+		<h2>FIRE + Reinforcement Learning Demo</h2>
+		<div style="margin-top: 1rem;">
+			<h3 style="margin-bottom: 1rem; font-weight: bold;">Atari</h3>
+			<div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center;">
+				<div style="text-align: center;">
+					<img src="images/fire_asterix.gif" alt="Asterix-v4" style="max-width: 200px; height: auto; border-radius: 8px;">
+					<p style="margin-top: 0.5rem; text-align: center;">Asterix-v4</p>
+				</div>
+				<div style="text-align: center;">
+					<img src="images/fire_beamrider.gif" alt="BeamRider-v4" style="max-width: 200px; height: auto; border-radius: 8px;">
+					<p style="margin-top: 0.5rem; text-align: center;">BeamRider-v4</p>
+				</div>
+				<div style="text-align: center;">
+					<img src="images/fire_demonattack.gif" alt="DemonAttack-v4" style="max-width: 200px; height: auto; border-radius: 8px;">
+					<p style="margin-top: 0.5rem; text-align: center;">DemonAttack-v4</p>
+				</div>
+			</div>
+			<h3 style="margin: 2rem 0 1rem; font-weight: bold;">HumanoidBench</h3>
+			<div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center;">
+				<div style="text-align: center;">
+					<img src="images/fire_walk.gif" alt="h1-walk-v0" style="max-width: 200px; height: auto; border-radius: 8px;">
+					<p style="margin-top: 0.5rem; text-align: center;">h1-walk-v0</p>
+				</div>
+				<div style="text-align: center;">
+					<img src="images/fire_balance.gif" alt="h1-balance_simple-v0" style="max-width: 200px; height: auto; border-radius: 8px;">
+					<p style="margin-top: 0.5rem; text-align: center;">h1-balance_simple-v0</p>
+				</div>
+				<div style="text-align: center;">
+					<img src="images/fire_run.gif" alt="h1-run-v0" style="max-width: 200px; height: auto; border-radius: 8px;">
+					<p style="margin-top: 0.5rem; text-align: center;">h1-run-v0</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="hr"></div>
+	<div>
+		<h2>FIRE with Continual Visual Learning</h2>
+		<div class="figure-caption">
+			<p>
+				We evaluate FIRE on <span class="bold">3</span> continual visual learning tasks across 3 pairs of various architectures and datasets: CIFAR-10 with ResNet-18, CIFAR-100 with ViT-Tiny, and Tiny ImageNet with VGG-16.
+			</p>
+		</div>
+		<div class="figure" style="height: 600px; background-image: url(images/vision.png);"></div>
+	</div>
+
+	<div class="hr"></div>
+	<div>
+		<h2>FIRE with Continual Pre-training of LLMs </h2>
+		<div class="figure-caption">
+			<p>
+				We pretrained GPT-0.1B on WikiText-103 and then continually trained on a new dataset consisting of a mixture of OpenWebText and WikiText-103. From left to right, results correspond to models initialized from the best checkpoint during pretraining, from 30k pretraining iterations, and from 60k pretraining iterations.
+			</p>
+		</div>
+		<div class="figure" style="height: 200px; background-image: url(images/language.png);"></div>
+	</div>
+	<div class="hr"></div>
+	<div>
+		<h2>FIRE with Reinforcement Learning</h2>
+		<div class="figure-caption">
+			<p>
+				(up) Discrete control with DQN on three <a href="https://arxiv.org/pdf/1207.4708">Atari</a> environments that suffer from severe plasticity loss. (down) Continuous control with SAC on three <a href="https://humanoid-bench.github.io/">HumanoidBench</a> tasks. The black dashed line indicates the point at which reinitialization is applied.
+			</p>
+		</div>
+		<div class="figure" style="height: 400px; background-image: url(images/rl.png);"></div>
+	</div>
+	<div class="hr"></div>
+	<div style="margin: auto; margin-bottom: 64px; text-align: center;">
+		<h2>Paper</h2>
+		<span class="vbold"><span class="vbold mcolor">FIRE</span>: Frobenius-Isometry Reinitialization for Balancing the Stability-Plasticity Tradeoff</span><br/>
+		<span class="italic">Isaac Han, Sangyeon Park, Seungwon Oh, Donghu Kim, <br/>
+							Hojoon Lee, Kyung-Joong Kim</span><br/><br/>
+		<a href="https://openreview.net/forum?id=CfZLxT3zIZ">Openreview</a><br/><br/>
+		<div class="page" style="background-image: url(thumbnails/0.jpg);"></div>
+		<div class="page" style="background-image: url(thumbnails/1.jpg);"></div>
+		<div class="page" style="background-image: url(thumbnails/2.jpg);"></div>
+		<div class="page" style="background-image: url(thumbnails/3.jpg);"></div>
+		<div class="page" style="background-image: url(thumbnails/4.jpg);"></div>
+		<div class="page" style="background-image: url(thumbnails/5.jpg);"></div>
+		<div class="page" style="background-image: url(thumbnails/6.jpg);"></div>
+		<div class="page" style="background-image: url(thumbnails/7.jpg);"></div>
+		<div class="page" style="background-image: url(thumbnails/8.jpg);"></div>
+		<div class="page" style="background-image: url(thumbnails/9.jpg);"></div>
+	</div>
+	<div class="hr"></div>
+	<div style="padding-bottom: 64px; text-align: center;">
+		<h2>Citation</h2>
+		<p>
+			If you find our work useful, please consider citing the paper as follows:
+		</p>
+		<div id="bibtex-text" class="bibtexsection" onClick="window.getSelection().selectAllChildren(document.getElementById('bibtex-text'));">
+@article{han2026fire,
+	title={FIRE: Frobenius-Isometry Reinitialization
+		for Balancing the Stability-Plasticity Tradeoff},
+	author={Isaac Han and Sangyeon Park and Seungwon Oh and Donghu Kim
+		and Hojoon Lee and Kyung-Joong Kim},
+	journal={International Conference on Learning Representations (ICLR)},
+	year={2026}
+}
+		</div>
+	</div>
+</div>
+<footer>
+<a href="index.html#top"><i class="fa fa-arrow-up"></i><br/>Return to top</a>
+<div style="padding-top: 48px;">
+	<span>Website based on <a href="https://sonyresearch.github.io/simba/">SimBa</a>.</span>
+</div>
+</footer>
