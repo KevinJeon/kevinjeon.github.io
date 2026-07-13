@@ -1,0 +1,542 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157941252-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-157941252-1');
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+  <meta http-equiv="Pragma" content="no-cache"/>
+  <meta http-equiv="Expires" content="0"/>
+
+  <title>Hyeonchang Jeon</title>
+
+  <meta name="author" content="Hyeonchang Jeon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  <link rel="icon" type="image/png" href="pictures/personal_round.png">
+
+  <style>
+    .publication-filter,
+    .subject-filter {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 6px;
+      margin: 0 0 8px 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .publication-filter {
+      margin-top: 2px;
+    }
+    .filter-btn {
+      flex: 0 0 auto;
+      background: #f5f7fa;
+      border: 1px solid #d8dee6;
+      border-radius: 4px;
+      color: #445;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 12px;
+      line-height: 1.2;
+      padding: 4px 9px;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .filter-btn:hover {
+      text-decoration: none;
+      color: #1772d0;
+      border-color: #9ec3e8;
+      background: #eef5fc;
+    }
+    .filter-btn.active {
+      color: #fff;
+      background: #1772d0;
+      border-color: #1772d0;
+      font-weight: 600;
+    }
+    .subject-filter .filter-btn {
+      font-size: 11px;
+      padding: 3px 7px;
+    }
+    .publication-entry {
+      transition: opacity 0.3s ease, height 0.3s ease;
+    }
+    .publication-entry.hidden {
+      display: none;
+    }
+    /* Style for the Simba GIF to crop the top */
+    .paper-images {
+      width: 100%;
+      height: auto;
+    }
+    .cropped-gif {
+      width: 100%;
+      clip-path: inset(20% 0 20% 0);
+    }
+    .spotlight {
+        color: orange;
+        font-weight: bold;
+      }
+    .subject-tag {
+      display: inline-block;
+      font-size: 12px;
+      padding: 1px 6px;
+      margin: 0 4px 4px 0;
+      border-radius: 3px;
+      background-color: #eef3f8;
+      color: #445;
+      cursor: pointer;
+    }
+    .subject-tag:hover,
+    .subject-tag.active {
+      background-color: #d6e6f5;
+      color: #1772d0;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="row" style="margin-top: 10px;">
+      <div class="col-sm-8 name-column" style="min-width: 320px;">
+        <p style="text-align:left; white-space: nowrap;">
+          <name>Hyeonchang Jeon</name>
+        </p>
+      </div>
+      <div class="col-sm-4 name-column text-right" style="margin-top: 10px">
+      </div>
+    </div>
+    <div class="row common-rows">
+
+      <div class="col-xs-12 col-sm-8 personal-column">
+        <p>
+            I'm a Ph.D student from <a href="https://ai.gist.ac.kr/aieng/index.do">GIST AI</a>, advised by <a href="https://cilab.gist.ac.kr/hp/people/">Kyung-Joong Kim</a>
+        </p>
+        <p>
+            My research goal is to understand how decision-making models interpret and use information about other agents across diverse multi-agent domains. I study how an agent can reason about others' behavior and incorporate that understanding into its own decisions.
+        </p>
+        <p>
+            Recently, I have been focusing on this problem in the autonomous driving domain. Previously, I worked on multi-agent reinforcement learning in games.
+        </p>
+        <p>
+            Beyond multi-agent decision-making for autonomous driving, I'm also interested in trajectory generation and open-endedness for autonomous driving. If you'd like to discuss or collaborate on any of these topics, feel free to reach out!
+        </p>
+        <p style="text-align:center">
+          <a href="mailto:kevinjeon119@gm.gist.ac.kr">Email</a> &nbsp/&nbsp
+          <a href="data/cv.pdf">CV</a> &nbsp/&nbsp
+          <a href="https://scholar.google.com/citations?user=qqM2jmkAAAAJ&hl=en">Google Scholar</a> &nbsp/&nbsp
+          <a href="https://www.linkedin.com/in/hyeonchang-jeon-a4514a1b3/">LinkedIn</a> &nbsp/&nbsp
+          <a href="https://x.com/kevinjeon119">X</a> &nbsp/&nbsp
+          <a href="https://github.com/KevinJeon">Github</a>
+        </p>
+
+      </div>
+      <div class="col-xs-12 col-sm-4 personal-column" style="margin-top: 10px">
+        <img alt="profile photo" src="pictures/profile.png" class="personal-photo">
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row section-heading-rows">
+      <h5>News</h5>
+    </div>
+    <div class="row common-rows">
+      <div class="col-xs-3 col-sm-2" style="font-weight:bold; text-align:right;">
+        2024.08–2024.10
+      </div>
+      <div class="col-xs-9 col-sm-10">
+        I visited New York University as a Visiting Researcher, mentored by <a href="https://www.eugenevinitsky.com/">Prof. Eugene Vinitsky</a>, and worked on interpreting decision-making for autonomous driving.
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="row section-heading-rows">
+      <h5>Publications</h5>
+    </div>
+    <div class="publication-filter">
+      <a href="javascript:void(0)" class="filter-btn" data-filter="published">Published</a>
+      <a href="javascript:void(0)" class="filter-btn" data-filter="preprint">Preprint</a>
+      <a href="javascript:void(0)" class="filter-btn" data-filter="workshop">Workshop</a>
+      <a href="javascript:void(0)" class="filter-btn active" data-filter="all">All</a>
+    </div>
+    <div class="subject-filter">
+      <a href="javascript:void(0)" class="filter-btn subject-btn" data-subject="all">All</a>
+      <a href="javascript:void(0)" class="filter-btn subject-btn active" data-subject="Autonomous Driving">Autonomous Driving</a>
+      <a href="javascript:void(0)" class="filter-btn subject-btn" data-subject="Multi-Agent">Multi-Agent</a>
+      <a href="javascript:void(0)" class="filter-btn subject-btn" data-subject="Game AI">Game AI</a>
+      <a href="javascript:void(0)" class="filter-btn subject-btn" data-subject="Theory of Mind">Theory of Mind</a>
+      <a href="javascript:void(0)" class="filter-btn subject-btn" data-subject="Interpretability">Interpretability</a>
+      <a href="javascript:void(0)" class="filter-btn subject-btn" data-subject="Zero-shot Coordination">Zero-shot</a>
+      <a href="javascript:void(0)" class="filter-btn subject-btn" data-subject="VR">VR</a>
+    </div>
+
+    <!-- Published -->
+    <div class="row common-rows publication-entry published" data-subjects="Game AI,Multi-Agent" style="margin-top: 0%">
+      <div class="col-xs-12 custom-col-sm-3 left-column">
+        <img src="pictures/raidenv.gif" class="paper-images" alt="RaidEnv">
+      </div>
+      <div class="col-xs-12 col-sm-9 right-column" style="margin-top: -1%">
+        <br>
+        <span class="subject-tag" data-subject="Game AI">Game AI</span>
+        <span class="subject-tag" data-subject="Multi-Agent">Multi-Agent</span>
+        <br>
+        <papertitle>
+          RaidEnv: Exploring New Challenges in Automated Content Balancing for Boss Raid Games
+        </papertitle>
+        <br>
+        <strong>Hyeonchang Jeon*</strong>,
+        In-Chang Baek*,
+        Cheong-mok Bae,
+        Taehwa Park,
+        Wonsang You,
+        Taegwan Ha,
+        Hoyun Jung,
+        Jinha Noh,
+        Seungwon Oh,
+        <a href="https://cilab.gist.ac.kr/hp/people/">Kyung-Joong Kim</a>
+        <br>
+        <em>IEEE Transactions on Games (2023)</em>
+        <br>
+        <a href="https://arxiv.org/pdf/2307.01676.pdf">paper</a> /
+        <a href="https://github.com/CILAB-CT-GAME/RaidEnv">code</a> /
+        <a href="https://www.facebook.com/IEEE.CIS/posts/raidenv-exploring-new-challenges-in-automated-content-balancing-for-boss-raid-ga/977691614401233/">news</a>
+        <br><br>
+      </div>
+    </div>
+
+    <div class="row common-rows publication-entry published" data-subjects="VR" style="margin-top: 0%">
+      <div class="col-xs-12 custom-col-sm-3 left-column">
+        <img src="pictures/vr.png" class="paper-images" alt="Seamless-walk">
+      </div>
+      <div class="col-xs-12 col-sm-9 right-column" style="margin-top: -1%">
+        <br>
+        <span class="subject-tag" data-subject="VR">VR</span>
+        <br>
+        <papertitle>
+          Seamless-walk: natural and comfortable virtual reality locomotion method with a high-resolution tactile sensor
+        </papertitle>
+        <br>
+        Yunho Choi,
+        Dong-Hyeok Park,
+        Sungha Lee,
+        Isaac Han,
+        Ecehan Akan,
+        <strong>Hyeonchang Jeon</strong>,
+        <a href="https://yyueluo.com/">Yiyue Luo</a>,
+        <a href="https://sites.google.com/view/gist-hcis-lab">SeungJun Kim</a>,
+        <a href="https://cdfg.mit.edu/wojciech">Wojciech Matusik</a>,
+        <a href="https://www.csail.mit.edu/person/daniela-rus">Daniela Rus</a>,
+        <a href="https://cilab.gist.ac.kr/hp/people/">Kyung-Joong Kim</a>
+        <br>
+        <em>Virtual Reality (2023)</em>
+        <br>
+        <a href="https://link.springer.com/content/pdf/10.1007/s10055-023-00750-x.pdf">paper</a> /
+        <a href="https://techxplore.com/news/2023-04-natural-comfortable-seamless-walk-virtual-reality.html">news</a>
+        <br><br>
+      </div>
+    </div>
+
+    <!-- Preprint / In submission -->
+    <div class="row common-rows publication-entry preprint" data-subjects="Autonomous Driving,Interpretability" style="margin-top: 0%">
+      <div class="col-xs-12 custom-col-sm-3 left-column">
+        <img src="pictures/probing.png" class="paper-images" alt="What Probing Reveals">
+      </div>
+      <div class="col-xs-12 col-sm-9 right-column" style="margin-top: -1%">
+        <br>
+        <span class="subject-tag" data-subject="Autonomous Driving">Autonomous Driving</span>
+        <span class="subject-tag" data-subject="Interpretability">Interpretability</span>
+        <br>
+        <papertitle>
+          What Probing Reveals about Autonomous Driving: Linking Internal Prediction Errors to Ego Planning
+        </papertitle>
+        <br>
+        <strong>Hyeonchang Jeon*</strong>,
+        Kyung-Beom Kim,
+        <a href="https://www.eugenevinitsky.com/">Eugene Vinitsky</a>,
+        <a href="https://cilab.gist.ac.kr/hp/people/">Kyung-Joong Kim</a>
+        <br>
+        <em>In submission (2026)</em>
+        <br>
+        <a href="https://arxiv.org/pdf/2606.31106.pdf">paper</a> /
+        <a href="https://github.com/CILAB-MA/gpudrive_lab">code</a>
+        <br><br>
+      </div>
+    </div>
+
+    <div class="row common-rows publication-entry preprint" data-subjects="Multi-Agent,Game AI" style="margin-top: 0%">
+      <div class="col-xs-12 custom-col-sm-3 left-column">
+        <img src="pictures/tail.gif" class="paper-images" alt="Tail Catching">
+      </div>
+      <div class="col-xs-12 col-sm-9 right-column" style="margin-top: -1%">
+        <br>
+        <span class="subject-tag" data-subject="Multi-Agent">Multi-Agent</span>
+        <span class="subject-tag" data-subject="Game AI">Game AI</span>
+        <br>
+        <papertitle>
+          Tail Catching: An Environment for Active Role Inference via Information-Seeking Actions
+        </papertitle>
+        <br>
+        <strong>Hyeonchang Jeon*</strong>,
+        <a href="https://cilab.gist.ac.kr/hp/people/">Kyung-Joong Kim</a>
+        <br>
+        <em>In submission (2026)</em>
+        <br><br>
+      </div>
+    </div>
+
+    <div class="row common-rows publication-entry preprint" data-subjects="Theory of Mind,Multi-Agent,Game AI" style="margin-top: 0%">
+      <div class="col-xs-12 custom-col-sm-3 left-column">
+        <img src="pictures/diplomacy.png" class="paper-images" alt="Press Diplomacy">
+      </div>
+      <div class="col-xs-12 col-sm-9 right-column" style="margin-top: -1%">
+        <br>
+        <span class="subject-tag" data-subject="Theory of Mind">Theory of Mind</span>
+        <span class="subject-tag" data-subject="Multi-Agent">Multi-Agent</span>
+        <span class="subject-tag" data-subject="Game AI">Game AI</span>
+        <br>
+        <papertitle>
+          Understanding Unreliability Using Theory of Mind in Press Diplomacy
+        </papertitle>
+        <br>
+        <strong>Hyeonchang Jeon*</strong>,
+        Songmi Oh*,
+        Wonsang You*,
+        Hoyoun Jung,
+        <a href="https://cilab.gist.ac.kr/hp/people/">Kyung-Joong Kim</a>
+        <br>
+        <em>In submission (2024)</em>
+        <br><br>
+      </div>
+    </div>
+
+    <div class="row common-rows publication-entry preprint" data-subjects="Multi-Agent,Zero-shot Coordination" style="margin-top: 0%">
+      <div class="col-xs-12 custom-col-sm-3 left-column">
+        <img src="pictures/adhoc.png" class="paper-images" alt="Ad-hoc Team Cooperation">
+      </div>
+      <div class="col-xs-12 col-sm-9 right-column" style="margin-top: -1%">
+        <br>
+        <span class="subject-tag" data-subject="Multi-Agent">Multi-Agent</span>
+        <span class="subject-tag" data-subject="Zero-shot Coordination">Zero-shot Coordination</span>
+        <br>
+        <papertitle>
+          Behavioral Differences is the Key of Ad-hoc Team Cooperation in Multiplayer Games Hanabi
+        </papertitle>
+        <br>
+        <strong>Hyeonchang Jeon</strong>,
+        <a href="https://cilab.gist.ac.kr/hp/people/">Kyung-Joong Kim</a>
+        <br>
+        <em>arXiv preprint (2023)</em>
+        <br>
+        <a href="https://arxiv.org/pdf/2303.06775.pdf">paper</a>
+        <br><br>
+      </div>
+    </div>
+
+    <!-- Workshop -->
+    <div class="row common-rows publication-entry workshop" data-subjects="Autonomous Driving,Multi-Agent,Zero-shot Coordination" style="margin-top: 0%">
+      <div class="col-xs-12 custom-col-sm-3 left-column">
+        <img src="pictures/record.png" class="paper-images" alt="ReCord">
+      </div>
+      <div class="col-xs-12 col-sm-9 right-column" style="margin-top: -1%">
+        <br>
+        <span class="subject-tag" data-subject="Autonomous Driving">Autonomous Driving</span>
+        <span class="subject-tag" data-subject="Multi-Agent">Multi-Agent</span>
+        <span class="subject-tag" data-subject="Zero-shot Coordination">Zero-shot Coordination</span>
+        <br>
+        <papertitle>
+          ReCord: Replay Coordination for Safe and Robust Population-Based Training in Autonomous Driving
+        </papertitle>
+        <br>
+        <strong>Hyeonchang Jeon*</strong>,
+        <a href="https://cilab.gist.ac.kr/hp/people/">Kyung-Joong Kim</a>
+        <br>
+        <em>Trustworthy AI for Good (AI4GOOD) Workshop @ ICML 2026</em>
+        <br>
+        <a href="https://openreview.net/pdf?id=yf1h6EUF88">paper</a>
+        <br><br>
+      </div>
+    </div>
+
+    <div class="row common-rows publication-entry workshop" data-subjects="Autonomous Driving,Interpretability" style="margin-top: 0%">
+      <div class="col-xs-12 custom-col-sm-3 left-column">
+        <img src="pictures/interpret.png" class="paper-images" alt="Interpreting IL">
+      </div>
+      <div class="col-xs-12 col-sm-9 right-column" style="margin-top: -1%">
+        <br>
+        <span class="subject-tag" data-subject="Autonomous Driving">Autonomous Driving</span>
+        <span class="subject-tag" data-subject="Interpretability">Interpretability</span>
+        <br>
+        <papertitle>
+          Interpreting the Planning and Reasoning Ability of Imitation Learning in Autonomous Driving
+        </papertitle>
+        <br>
+        <strong>Hyeonchang Jeon*</strong>,
+        Kyung-Beom Kim,
+        <a href="https://www.eugenevinitsky.com/">Eugene Vinitsky</a>,
+        <a href="https://cilab.gist.ac.kr/hp/people/">Kyung-Joong Kim</a>
+        <br>
+        <em>7th Workshop on Long-Term Human Motion Prediction @ ICRA 2025</em>
+        <br>
+        <a href="https://motionpredictionicra2025.github.io/assets/papers/Jeon2025.pdf">paper</a> /
+        <a href="https://github.com/CILAB-MA/gpudrive_lab">code</a>
+        <br><br>
+      </div>
+    </div>
+
+    <div class="row common-rows publication-entry workshop" data-subjects="Theory of Mind,Multi-Agent,Game AI" style="margin-top: 0%">
+      <div class="col-xs-12 custom-col-sm-3 left-column">
+        <img src="pictures/diplomacy.png" class="paper-images" alt="Press Diplomacy">
+      </div>
+      <div class="col-xs-12 col-sm-9 right-column" style="margin-top: -1%">
+        <br>
+        <span class="subject-tag" data-subject="Theory of Mind">Theory of Mind</span>
+        <span class="subject-tag" data-subject="Multi-Agent">Multi-Agent</span>
+        <span class="subject-tag" data-subject="Game AI">Game AI</span>
+        <br>
+        <papertitle>
+          Inferring Relationship using Theory of Mind in Press Diplomacy
+        </papertitle>
+        <br>
+        <strong>Hyeonchang Jeon*</strong>,
+        Songmi Oh*,
+        Wonsang You*,
+        Hoyoun Jung,
+        <a href="https://cilab.gist.ac.kr/hp/people/">Kyung-Joong Kim</a>
+        <br>
+        <em>AI for Agent-Based Modelling Workshop @ ICML 2022</em>
+        <br>
+        <a href="https://openreview.net/pdf?id=FT_zDuOS8We">paper</a>
+        <br><br>
+      </div>
+    </div>
+
+    <div class="row common-rows publication-entry workshop" data-subjects="VR" style="margin-top: 0%">
+      <div class="col-xs-12 custom-col-sm-3 left-column">
+        <img src="pictures/vr.png" class="paper-images" alt="Seamless-walk VRW">
+      </div>
+      <div class="col-xs-12 col-sm-9 right-column" style="margin-top: -1%">
+        <br>
+        <span class="subject-tag" data-subject="VR">VR</span>
+        <br>
+        <papertitle>
+          Seamless-walk: Novel natural virtual reality locomotion method with a high-resolution tactile sensor
+        </papertitle>
+        <br>
+        Yunho Choi,
+        <strong>Hyeonchang Jeon</strong>,
+        Sungha Lee,
+        Isaac Han,
+        <a href="https://yyueluo.com/">Yiyue Luo</a>,
+        <a href="https://sites.google.com/view/gist-hcis-lab">SeungJun Kim</a>,
+        <a href="https://cdfg.mit.edu/wojciech">Wojciech Matusik</a>,
+        <a href="https://cilab.gist.ac.kr/hp/people/">Kyung-Joong Kim</a>
+        <br>
+        <em>IEEE VR Abstracts and Workshops (VRW) 2022</em>
+        <br>
+        <a href="https://doi.org/10.1109/vrw55335.2022.00199">paper</a>
+        <br><br>
+      </div>
+    </div>
+
+  <div class="container">
+    <div class="row section-heading-rows" style="margin-left:-4%; margin-top:2%">
+      <h5 style="z-index: 2;">Academic Services</h5>
+    </div>
+
+
+    <div class="row common-rows" style="margin-top:-3%; margin-left:-3.5%">
+        <div class="col-xs-12 col-sm-3 left-column">
+          <ul style="margin-left:-2em; margin-top:0.7em;">
+          <li style="white-space: nowrap;">IEEE CoG Reviewer (2025)</li>
+          </ul>
+        </div>
+      </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p style="text-align:right;font-size:small;">
+          Template based on <a href="https://isaac7778.github.io/">Isaac Han's website</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const typeBtns = document.querySelectorAll('.publication-filter .filter-btn');
+        const subjectBtns = document.querySelectorAll('.subject-btn');
+        const subjectTags = document.querySelectorAll('.subject-tag');
+        const publications = document.querySelectorAll('.publication-entry');
+        let currentType = 'all';
+        let currentSubject = 'Autonomous Driving';
+
+        function applyFilters() {
+          typeBtns.forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-filter') === currentType);
+          });
+          subjectBtns.forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-subject') === currentSubject);
+          });
+          subjectTags.forEach(tag => {
+            tag.classList.toggle('active', tag.getAttribute('data-subject') === currentSubject);
+          });
+
+          publications.forEach(pub => {
+            const typeMatch = currentType === 'all' || pub.classList.contains(currentType);
+            const subjects = (pub.getAttribute('data-subjects') || '').split(',').map(s => s.trim());
+            const subjectMatch = currentSubject === 'all' || subjects.includes(currentSubject);
+
+            if (typeMatch && subjectMatch) {
+              pub.classList.remove('hidden');
+            } else {
+              pub.classList.add('hidden');
+            }
+          });
+        }
+
+        typeBtns.forEach(btn => {
+          btn.addEventListener('click', function() {
+            currentType = this.getAttribute('data-filter');
+            applyFilters();
+          });
+        });
+
+        subjectBtns.forEach(btn => {
+          btn.addEventListener('click', function() {
+            currentSubject = this.getAttribute('data-subject');
+            if (currentSubject !== 'all') {
+              currentType = 'all';
+            }
+            applyFilters();
+          });
+        });
+
+        subjectTags.forEach(tag => {
+          tag.addEventListener('click', function() {
+            currentSubject = this.getAttribute('data-subject');
+            currentType = 'all';
+            applyFilters();
+          });
+        });
+
+        applyFilters();
+      });
+  </script>
+</body>
