@@ -81,8 +81,8 @@
 		<div class="figure" style="height: 200px; background-image: url(images/scaling_law.png);"></div>
 		<div style="margin: auto;">
 		<p class="architecture">
-			<span class="bold">(a) Illustration of FIRE:</span> Solving a constrained optimization problem, FIRE places weights at the intersection of high-stability and high-plasticity manifolds. The solution to the constrained optimization problem is the nearest semi-orthogonal weight matrix.
-			<span class="bold">(b) Algorithm of FIRE:</span> FIRE approximates this solution via the Newton-Schulz iteration, orthogonalizing the neural network weights after training on the current dataset and before learning on a new one.
+			<span class="bold">(a) Closed-loop scaling:</span> We train BC and RL policies across increasing data scales and evaluate them with WOSAC metrics, including vehicle collision, off-road rate, and goal progress.
+			<span class="bold">(b) Performance is not explanation:</span> Both policy families exhibit clear scaling trends: BC improves and begins to plateau near the larger-data regime, while RL reaches lower collision and off-road rates and high goal progress. These gains motivate the probing analyses below, which ask whether better closed-loop scores correspond to stronger internal prediction and planning.
 		</p>
 	</div>
 	<div class="hr"></div>
@@ -92,40 +92,40 @@
 		<div class="figure" style="height: 400px; background-image: url(images/linear_probing.png);"></div>
 		<div style="margin: auto;">
 		<p class="architecture">
-			<span class="bold">(a) Illustration of FIRE:</span> Solving a constrained optimization problem, FIRE places weights at the intersection of high-stability and high-plasticity manifolds. The solution to the constrained optimization problem is the nearest semi-orthogonal weight matrix.
-			<span class="bold">(b) Algorithm of FIRE:</span> FIRE approximates this solution via the Newton-Schulz iteration, orthogonalizing the neural network weights after training on the current dataset and before learning on a new one.
+			<span class="bold">Top figure:</span> We train linear probes on intermediate policy representations and compare them with raw-input probes. The F1 Macro and trajectory-type accuracy gaps show how much additional future-motion information is encoded inside the learned representation across data scales and prediction horizons. BC gains grow with scale and then plateau, RL keeps stronger probing gains across horizons, and SMART (IL) is especially stable for longer-horizon prediction, suggesting that different training paradigms preserve surrounding-vehicle information in different ways.
+			<span class="bold">Bottom figure:</span> We then relate the probing signal to future ego-other distance. As scale increases, the representation becomes more sensitive to vehicles that will remain close to the ego, but it still does not perfectly isolate the truly safety-critical agents.
 		</p>
 	</div>
 	<div class="hr"></div>
 	<div>
 		<h2>Perturbed Simulation</h2>
+		<div class="figure" style="height: 600px; background-image: url(images/perturbed_simulation.png);"></div>
 		<div class="figure-caption">
 			<p>
-				We evaluate FIRE on <span class="bold">3</span> continual visual learning tasks across 3 pairs of various architectures and datasets: CIFAR-10 with ResNet-18, CIFAR-100 with ViT-Tiny, and Tiny ImageNet with VGG-16.
+				We randomly remove surrounding vehicles in closed-loop simulation to test whether policies robustly use interaction information or depend on the mere presence of other agents. If a model truly reasons about traffic, removing vehicles should make many scenes easier. Instead, performance can degrade in the single-AV setting, with worse off-road and progress trends, revealing a spurious reliance on surrounding vehicles that is only partially reduced by scale.
 			</p>
 		</div>
-		<div class="figure" style="height: 600px; background-image: url(images/perturbed_simulation.png);"></div>
 	</div>
 
 	<div class="hr"></div>
 	<div>
 		<h2>Near-Collision</h2>
+		<div class="figure" style="height: 400px; background-image: url(images/near_collision.png);"></div>
 		<div class="figure-caption">
 			<p>
-				We pretrained GPT-0.1B on WikiText-103 and then continually trained on a new dataset consisting of a mixture of OpenWebText and WikiText-103. From left to right, results correspond to models initialized from the best checkpoint during pretraining, from 30k pretraining iterations, and from 60k pretraining iterations.
+				We examine pre-collision windows with the surrounding-vehicle probe to ask whether policies identify the safety-critical vehicle early enough for avoidance. The heatmaps compare probing signal near collision against each model's average signal over the episode. Both BC and RL eventually emphasize the nearby colliding vehicle, but the strongest signal appears mainly in the final 10 steps before impact, indicating that relevant prediction often arrives too late to prevent the failure.
 			</p>
 		</div>
-		<div class="figure" style="height: 400px; background-image: url(images/near_collision.png);"></div>
 	</div>
 	<div class="hr"></div>
 	<div>
 		<h2>Causal Intervention</h2>
+		<div class="figure" style="height: 400px; background-image: url(images/intervention.png);"></div>
 		<div class="figure-caption">
 			<p>
-				(up) Discrete control with DQN on three <a href="https://arxiv.org/pdf/1207.4708">Atari</a> environments that suffer from severe plasticity loss. (down) Continuous control with SAC on three <a href="https://humanoid-bench.github.io/">HumanoidBench</a> tasks. The black dashed line indicates the point at which reinitialization is applied.
+				We intervene on internal surrounding-vehicle representations and observe how the decoded ego plan changes. In the adaptiveness setting, we perturb another vehicle's predicted future to create a potential conflict and test whether the ego plan avoids it. In the recovery setting, we replace an incorrect surrounding-vehicle prediction with the correct label and test whether the ego plan returns toward a safer, ground-truth-aligned trajectory. Across BC, RL, and IL, these interventions frequently change ego planning, showing that surrounding-vehicle predictions causally affect the planner.
 			</p>
 		</div>
-		<div class="figure" style="height: 400px; background-image: url(images/intervention.png);"></div>
 	</div>
 	<div class="hr"></div>
 	<div style="margin: auto; margin-bottom: 64px; text-align: center;">
