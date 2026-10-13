@@ -198,10 +198,12 @@ a { color: inherit; }
 }
 
 .definition {
-  max-width: 640px;
+  max-width: 980px;
   margin: 16px auto 0;
-  color: var(--muted);
-  font-size: 18px;
+  color: var(--ink);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.45;
 }
 
 .shot-note {
@@ -212,10 +214,11 @@ a { color: inherit; }
 }
 
 .authors {
-  margin: 18px auto 0;
-  max-width: 760px;
-  color: var(--muted);
-  font-size: 16px;
+  margin: 22px auto 0;
+  max-width: 980px;
+  color: var(--ink);
+  font-size: 22px;
+  font-weight: 600;
 }
 
 .authors a { color: var(--ink); text-decoration: none; border-bottom: 1px solid rgba(244, 240, 232, 0.35); }
@@ -270,10 +273,20 @@ a { color: inherit; }
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
-.screen img {
+.screen img,
+.screen video {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.hero-video {
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.hero-video video {
+  margin-top: calc(100% * -88 / 1920);
 }
 
 .bracket {
@@ -341,6 +354,11 @@ a { color: inherit; }
   fill: currentColor;
 }
 
+.btn-emoji {
+  font-size: 16px;
+  line-height: 1;
+}
+
 .btn.solid {
   background: var(--red);
   border-color: var(--red);
@@ -348,6 +366,13 @@ a { color: inherit; }
 }
 
 .btn:hover { border-color: #fff; }
+
+.btn.soon {
+  color: rgba(244, 240, 232, 0.72);
+  cursor: default;
+}
+
+.btn.soon:hover { border-color: rgba(244, 240, 232, 0.28); }
 
 .sheet {
   background: #f6f3ee;
@@ -466,6 +491,27 @@ a { color: inherit; }
   color: #f4f0e8;
   background: #101012;
   box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.28);
+}
+
+.clip {
+  margin: 8px 0 18px;
+  padding: 12px 12px 10px;
+  background: #141416;
+  border-radius: 16px;
+}
+
+.clip video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  background: #000;
+}
+
+.clip figcaption {
+  margin: 12px 4px 2px;
+  color: #c8c0b6;
+  font-size: 15px;
 }
 
 .slot-row {

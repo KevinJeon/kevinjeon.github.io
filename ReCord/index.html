@@ -3,9 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ReCord: Reducing Reactivity Reliance via Replay Coordination for Zero-Shot Autonomous Driving</title>
-  <meta name="description" content="What is reactivity reliance, why it matters for zero-shot driving, and how Replay Coordination removes it.">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600&family=Syne:wght@700;800&display=swap">
+  <meta name="description" content="ReCord trains autonomous driving policies with non-reactive action traces from diverse partner populations, improving zero-shot coordination with unseen partners while reducing training cost.">
+  <meta name="theme-color" content="#141414">
+  <title>ReCord: Replay Coordination for Safe and Robust Zero-Shot Coordination in Autonomous Driving</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Source+Sans+3:wght@400;600&amp;family=Syne:wght@700;800&amp;display=swap">
+  <!-- Keep your existing CSS file and all image/video assets in their original folders. -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -25,34 +29,22 @@
 
   <header class="stage" id="top">
     <div class="stage-inner">
-      <p class="kicker">In submission · 2026</p>
-      <h1 class="wordmark"><span class="name">Re<span class="cord"><span class="cee">C<span class="rec-mark"></span></span>ord</span>:</span> <span class="full">Reducing Reactivity Reliance via Replay Coordination for Zero-Shot Autonomous Driving</span></h1>
+      <p class="kicker">Research project · 2026</p>
+      <h1 class="wordmark">
+        <span class="name">Re<span class="cord"><span class="cee">C<span class="rec-mark"></span></span>ord</span>:</span>
+        <span class="full">Replay Coordination for Safe and Robust Zero-Shot Coordination in Autonomous Driving</span>
+      </h1>
       <div class="take"><span></span></div>
       <nav class="jump" aria-label="Sections">
         <a href="#why">01 Why it matters</a>
-        <a href="#see">02 How we measure it</a>
-        <a href="#method">03 How ReCord removes it</a>
+        <a href="#method">02 How ReCord works</a>
+        <a href="#see">03 How we test it</a>
         <a href="#results">04 What changes</a>
-        <a href="#fast">05 Efficient</a>
-        <a href="#cite">06 Citation</a>
+        <a href="#fast">05 Efficiency</a>
+        <a href="#cite">06 Paper</a>
       </nav>
-      <h2 class="ask">What is reactivity reliance?</h2>
-      <p class="definition">
-        Ego safety that depends on the partner adapting. A partner that yields or swerves can hide a collision. Replay that same partner from a fixed action trace, and the collision can come back.
-      </p>
-
-      <div class="monitor">
-        <div class="screen slot">
-          <p class="slot-k">MP4 · muted · loop</p>
-          <p class="slot-t">Video overview</p>
-          <p class="slot-d">Same map and the same partner. Rows are Reactive-PBT and ReCord. Columns are the partner acting online, then that partner replayed from a fixed action trace. Source <span class="slot-file">ur/compare/2x2/map1001_w6hv4ads_2x2.mp4</span>.</p>
-          <p class="slot-look">What to look for. Reactive-PBT succeeds while the partner reacts and collides once that partner is replayed. ReCord succeeds in both columns.</p>
-        </div>
-      </div>
-      <p class="shot-note">
-        Put an MP4 here, the way the <a href="https://montrealrobotics.ca/gigapixel/">Gigapixel</a> overview plays. Not a GIF, and not a PDF. The older yield clip in <span class="slot-file">pictures/record.gif</span> only shows ReCord against Reactive-PBT.
-      </p>
-
+      <!-- Preserve the author list from the supplied project page.
+           Verify against the eventual public manuscript before release. -->
       <p class="authors">
         <a href="https://scholar.google.com/citations?user=qqM2jmkAAAAJ">Hyeonchang Jeon</a>*,
         Wonsang You,
@@ -60,14 +52,26 @@
         <a href="https://www.eugenevinitsky.com/">Eugene Vinitsky</a>,
         <a href="https://cilab.gist.ac.kr/hp/people/">Kyung-Joong Kim</a>
       </p>
+
       <div class="actions">
-        <a class="btn" href="https://github.com/CILAB-MA/ReCord">
-          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-          Code
-        </a>
-        <a class="btn" href="https://openreview.net/pdf?id=yf1h6EUF88">Workshop paper</a>
-        <a class="btn" href="../index.html">Homepage</a>
+        <span class="btn soon">Code: coming soon</span>
+        <span class="btn soon"><span class="btn-emoji" aria-hidden="true">📄</span> Paper: coming soon</span>
       </div>
+      <h2 class="ask">What is reactivity reliance?</h2>
+      <p class="definition">
+        A policy can appear safe because another vehicle yields or avoids the conflict for it.
+        Remove that favorable reaction, and collisions may reappear. ReCord trains the ego
+        to adapt, rather than counting on its partners to adapt for it.
+      </p>
+
+      <div class="monitor">
+        <div class="screen hero-video">
+          <video src="video/map7664_2eh1pvbi_2x2.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Reactive and replay partner comparison for ReCord and Reactive-PBT on map 7664"></video>
+        </div>
+      </div>
+      <p class="shot-note">
+        <strong>Same unseen partner, different execution.</strong> On map 7664, Reactive-PBT succeeds when the partner reacts but collides when that partner's actions are replayed. ReCord succeeds in both examples.
+      </p>
     </div>
   </header>
 
@@ -79,160 +83,183 @@
         <ol class="beats">
           <li>
             <h3>Unseen maps are not unseen partners</h3>
-            <p>Self-play can look nearly solved on held-out scenes, because every agent used the same policy. A partner trained another way, or a human log, is a different problem.</p>
+            <p>Self-play trains agents against copies of the same policy. Success on held-out scenes does not guarantee coordination with unfamiliar driving styles, including new RL policies or human drivers.</p>
           </li>
           <li>
-            <h3>Population training can still let the partner help</h3>
-            <p>Reactive-PBT trains the ego against diverse pre-trained partners, and those partners keep acting online. They can yield or avoid in response to the ego. A success in that setting may belong to the partner.</p>
+            <h3>In driving, either vehicle can avoid the crash</h3>
+            <p>A conflict can often be resolved if <em>either</em> the ego or the partner yields. Reactive-PBT exposes the ego to diverse partners, but those partners still act online. If they repeatedly yield first, the ego may learn to depend on that response instead of learning when to yield itself.</p>
           </li>
           <li>
-            <h3>Deployment does not promise that response</h3>
-            <p>Unseen policies and human drivers do not have to react the way a training partner did. A safe ego stays safe when the favorable adaptation is absent. Otherwise a low collision rate does not say who avoided the crash.</p>
+            <h3>Unseen drivers may not respond as expected</h3>
+            <p>Other vehicles may react differently, too late, or not at all. We therefore need to test not only whether the ego succeeds with an adaptive partner, but what happens when the same kind of partner no longer adapts to the ego.</p>
           </li>
         </ol>
       </section>
 
-      <section id="see">
-        <p class="chapter">02</p>
-        <h2>How we measure it</h2>
-        <p>
-          The same unseen partners are executed twice. Once they act online. Once their recorded actions are replayed. Only the execution changes.
-        </p>
-        <div class="modes">
-          <article>
-            <h3>US / USR</h3>
-            <p>Same reward, unseen seeds. US is reactive. USR replays the recorded actions.</p>
-          </article>
-          <article>
-            <h3>UR / URR</h3>
-            <p>Reward functions the ego did not train against. UR reacts. URR replays.</p>
-          </article>
-          <article>
-            <h3>Log-replay</h3>
-            <p>Recorded human trajectories. They never adapt, and they were not training partners.</p>
-          </article>
-        </div>
-        <div class="slot-row">
-          <div class="slot">
-            <p class="slot-k">MP4 · muted · loop</p>
-            <p class="slot-t">Scenario · unseen seed</p>
-            <p class="slot-d">Same 2×2 as the overview, on a different road. Source <span class="slot-file">us/compare/2x2/map8760_wjxyvh7b_2x2.mp4</span>.</p>
-            <p class="slot-look">What to look for. The collision still appears only when Reactive-PBT loses the partner’s reaction. The road geometry should not be the hero scene.</p>
-          </div>
-          <div class="slot">
-            <p class="slot-k">MP4 · muted · loop</p>
-            <p class="slot-t">Scenario · human log</p>
-            <p class="slot-d">One human trajectory, replayed and not reacting. Left is ReCord, right is Reactive-PBT. Not a policy 2×2, and not a clip from the US or UR sets.</p>
-            <p class="slot-look">What to look for. ReCord keeps a gap the reactive policy closes by colliding. The partner never yields in response.</p>
-          </div>
-        </div>
-        <p>
-          The reactivity reliance gap is how much collision rises when execution switches from reactive to replay. A smaller gap only counts if reactive performance stays intact.
-        </p>
-      </section>
-
       <section id="method">
-        <p class="chapter">03</p>
-        <h2>How ReCord removes it</h2>
+        <p class="chapter">02</p>
+        <h2>How ReCord works</h2>
         <p>
-          ReCord records action traces from the partner population before ego training, then replays those actions instead of running partner policies online. A replayed partner starts from the same initial state and follows the stored actions. Its next action does not depend on what the ego just did. Collisions do not cut the trace short, so the recorded behavior plays out. The ego has to coordinate with that fixed partner.
+          ReCord keeps the diversity of population-based training but changes how the partners are executed.
+          Before ego training, it collects <em>action traces</em> from a population of pre-trained policies.
+          During training, partner vehicles replay their stored actions instead of running their policies online.
+          Their actions can no longer change in response to the ego's current behavior, so the ego must learn
+          to handle conflicts without depending on favorable partner adaptation.
         </p>
         <figure class="fig">
-          <img src="images/overview.png" alt="Reactive-PBT runs partners online while ReCord replays fixed action traces from the same population">
-          <figcaption><strong>Overview.</strong> Unlike Reactive-PBT, which executes reactive partner policies online, ReCord replays fixed partner action traces. The ego coordinates without relying on the partner to yield or avoid.</figcaption>
+          <img src="images/overview.png" alt="Reactive-PBT executes pre-trained partner policies online; ReCord replays their pre-recorded action traces" loading="lazy">
+          <figcaption><strong>Method overview.</strong> Both methods use a diverse partner population. Reactive-PBT runs partner policies online, while ReCord replays their pre-recorded action traces during ego training.</figcaption>
         </figure>
         <div class="split">
           <article>
             <p class="tag">Reactive-PBT</p>
             <p class="flow">Partner policy <span>runs online</span></p>
-            <p>The partner sees the evolving scene, including the ego, and can yield or swerve in response.</p>
+            <p>Partners observe the evolving scene and can yield, brake, or avoid the ego in response.</p>
           </article>
           <article class="focus">
             <p class="tag">ReCord</p>
-            <p class="flow">Action trace <span>replayed</span></p>
-            <p>The partner’s actions were stored in advance. Ego behavior cannot recruit a new reaction from that partner.</p>
+            <p class="flow">Partner action trace <span>replayed</span></p>
+            <p>Partners follow actions recorded in advance. The ego's current behavior does not alter their next action.</p>
           </article>
         </div>
+        <p>
+          In the evaluated simulator, a replayed vehicle starts from the same initial state as its recorded counterpart.
+          Deterministic vehicle dynamics reproduce its recorded kinematic trajectory, and non-terminating collisions preserve the full action trace.
+          Importantly, <strong>ReCord does not use human log-replay trajectories as training partners</strong>; human log-replay is reserved as an unseen evaluation setting.
+        </p>
+      </section>
+
+      <section id="see">
+        <p class="chapter">03</p>
+        <h2>How we test reactivity reliance</h2>
+        <p>
+          We compare each ego policy against unseen partners under two execution modes:
+          <em>reactive</em> partners select actions online from the evolving scene;
+          <em>replayed</em> partners follow pre-recorded action traces.
+          Matching the partner type and evaluation setup lets us examine how performance changes when online partner adaptation is absent.
+        </p>
+        <div class="modes">
+          <article>
+            <h3>US / USR</h3>
+            <p><strong>Unseen seeds.</strong> Same policy family but different random seeds. US is reactive; USR replays the unseen partners' actions.</p>
+          </article>
+          <article>
+            <h3>UR / URR</h3>
+            <p><strong>Unseen rewards.</strong> Partners learned with different reward functions. UR is reactive; URR replays their actions.</p>
+          </article>
+          <article>
+            <h3>LR</h3>
+            <p><strong>Human log-replay.</strong> Recorded human trajectories are non-reactive, and the human logs were not used in ReCord's training.</p>
+          </article>
+        </div>
+        <p>
+          We describe <strong>reactivity reliance</strong> using the change in <em>collision per agent</em> between the matched replay and reactive evaluations
+          (USR − US, or URR − UR). A smaller gap indicates less performance degradation when partner reactivity is removed,
+          but it must be considered alongside collision and task-success performance in both modes.
+        </p>
+        <figure class="clip">
+          <video src="video/map7866_trio.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Three-policy comparison under unseen-seed replay on map 7866"></video>
+          <figcaption><strong>Unseen-seed replay, map 7866.</strong> ReCord completes the interaction, while Reactive-PBT and self-play collide in this example.</figcaption>
+        </figure>
+        <figure class="clip">
+          <video src="video/map9884_trio.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Three-policy comparison against human log-replay on map 9884"></video>
+          <figcaption><strong>Human log-replay, map 9884.</strong> The replayed human partner cannot respond to counterfactual ego actions. ReCord maintains separation in this example; Reactive-PBT and self-play collide.</figcaption>
+        </figure>
       </section>
 
       <section id="results">
         <p class="chapter">04</p>
         <h2>What changes</h2>
         <p>
-          On an L+N population with uniform sampling, four seeds. Each arrow is Reactive-PBT, then ReCord. The first two numbers are collision-rate gaps.
+          The largest advantage appears when unseen partners do not react. ReCord is broadly competitive with Reactive-PBT under reactive evaluation,
+          while achieving substantially fewer collisions with replayed partners and human logs.
+        </p>
+
+        <h3>Less dependent on partner reactions</h3>
+        <p>
+          With the L+N training population and uniform sampling, the matched replay-reactive collision gap shrinks for both unseen seeds and unseen rewards.
+          The values below are <strong>collisions per agent</strong>, not percentage-point changes in collision rate; they are calculated from the four-seed results in the paper.
         </p>
         <div class="stats">
           <article>
-            <p class="stat-k">Unseen-seed gap</p>
-            <p class="stat-n">1.74 <span>→</span> 0.85 <small>pp</small></p>
-            <p>USR minus US. Non-reactive collision rate falls from 5.46% to 4.73%.</p>
+            <p class="stat-k">Unseen-seed reliance gap</p>
+            <p class="stat-n">0.123 <span>→</span> 0.045</p>
+            <p>USR − US, Reactive-PBT → ReCord. Replayed collisions fall from 0.213 to 0.147 per agent.</p>
           </article>
           <article>
-            <p class="stat-k">Unseen-reward gap</p>
-            <p class="stat-n">1.28 <span>→</span> 0.82 <small>pp</small></p>
-            <p>URR minus UR. Non-reactive collision rate falls from 6.08% to 5.26%.</p>
+            <p class="stat-k">Unseen-reward reliance gap</p>
+            <p class="stat-n">0.126 <span>→</span> 0.053</p>
+            <p>URR − UR, Reactive-PBT → ReCord. Replayed collisions fall from 0.245 to 0.170 per agent.</p>
           </article>
           <article>
-            <p class="stat-k">Time to brake</p>
-            <p class="stat-n">−0.123 <span>→</span> +0.130 <small>s</small></p>
-            <p>On human log-replay. ReCord still has a brake-only way out, on average.</p>
+            <p class="stat-k">Human log-replay collisions</p>
+            <p class="stat-n">0.451 <span>→</span> 0.293</p>
+            <p>Reactive-PBT → ReCord with prioritized sampling: 35.0% fewer collisions per agent.</p>
           </article>
         </div>
-        <figure class="fig">
-          <img src="images/population.png" alt="Collision rate and at-fault collision for Reactive-PBT and ReCord under reactive and non-reactive evaluation">
-          <figcaption><strong>Reactivity reliance across populations.</strong> Collision under matched US–USR and UR–URR for L+N, Mix, and ME. Within each method, the gap between the solid bar and the hatched bar is the reliance gap. Error bars are the standard deviation across seeds.</figcaption>
-        </figure>
         <p>
-          Under reactive unseen-seed partners, Reactive-PBT still has the lower at-fault collision rate and the higher success rate. The smaller gap is read together with those numbers.
+          The trade-off matters: under reactive unseen-seed evaluation with uniform sampling, Reactive-PBT has slightly fewer collisions
+          (0.090 vs. 0.102 per agent) and a slightly higher success rate (97.5% vs. 97.0%).
+          ReCord's advantage is therefore not that it wins every reactive test, but that its performance degrades less when the partner's adaptation disappears.
         </p>
         <figure class="fig">
-          <img src="images/logreplay.png" alt="Log-replay collision, completion, and success for Reactive-PBT, ReCord, self-play, and Log-Train">
-          <figcaption><strong>Log-replay across training designs.</strong> ReCord has lower collision metrics and higher success than Reactive-PBT under ME, mixed, uniform, curriculum, and prioritized settings. Self-play and Log-Train are the reference lines. Error bars are 95% confidence intervals.</figcaption>
+          <img src="images/population.png" alt="Comparison of ReCord and Reactive-PBT across partner population designs" loading="lazy">
+          <figcaption><strong>Across partner populations.</strong> The human log-replay collision advantage extends to L+N, Mix, and maximum-entropy (ME) populations. Population comparisons and matched reactive/replay gaps answer different questions and should not be conflated.</figcaption>
+        </figure>
+
+        <h3>Better coordination with human drivers</h3>
+        <p>
+          Human log-replay evaluates ReCord on recorded trajectories that were not used as its training partners.
+          With prioritized partner sampling, its collision count falls from 0.451 to 0.293 per agent,
+          while success increases from <strong>90.9% to 94.0%</strong> (+3.1 percentage points).
+          It maintains an average speed of about 9.9 m/s, rather than avoiding conflicts by stopping.
+          With uniform sampling, collisions also fall from 0.426 to 0.327 per agent and success rises from 90.7% to 93.0%.
+        </p>
+        <figure class="fig">
+          <img src="images/logreplay.png" alt="ReCord and baseline comparisons on human log-replay driving outcomes" loading="lazy">
+          <figcaption><strong>Human log-replay.</strong> ReCord's advantage is visible in collision avoidance and task success across the evaluated training designs. This evaluation uses fixed human trajectories rather than reactive unseen partner policies.</figcaption>
         </figure>
         <p>
-          On human log-replay, ReCord lowers collision count, collision rate, and at-fault rate relative to Reactive-PBT across the populations and sampling strategies we tested, while completion and success stay comparable or improve. Log-Train, trained directly on human trajectories, remains the specialist against human logs. It drops further when Fast/Slow partners switch from reactive to replay. ReCord improves human-log coordination without human trajectories in training, and stays more robust to those non-reactive policy partners.
+          These human-log benefits also hold across predefined reward-based and unsupervised ME populations, as well as uniform, curriculum,
+          and prioritized sampling. On log-replay, structured sampling further reduces ReCord's collision count;
+          the same improvement is not observed consistently for Reactive-PBT.
         </p>
-        <p>
-          The same gap reduction shows up for mixed and maximum-entropy populations, and for prioritized and curriculum sampling.
-        </p>
+
       </section>
 
       <section id="fast">
         <p class="chapter">05</p>
-        <h2>It is also efficient</h2>
+        <h2>Nearly 3× faster training</h2>
         <p>
-          ReCord does not run partner policies online, so the same training run moves about three times as many steps. The gap holds for uniform, prioritized, and curriculum sampling.
+          ReCord replaces repeated partner-policy inference with lightweight action replay.
+          Under the same training and hardware configuration, it processes roughly three times as many environment steps per second.
+          This advantage holds across uniform, curriculum, and prioritized partner sampling.
         </p>
         <div class="speed">
           <p class="fast-n">126K <span>vs</span> 42K</p>
-          <p class="fast-unit">steps per second · uniform sampling · one RTX 3090</p>
-          <p>126K is ReCord. 42K is Reactive-PBT. Building the replay corpus once takes about 30 minutes. Spread over the full training budget, that is under 3% overhead, and the effective rate is still about 2.9×.</p>
+          <p class="fast-unit">Raw steps per second · uniform sampling · single RTX 3090</p>
+          <p>
+            ReCord reaches roughly 126K raw SPS, compared with 42K for Reactive-PBT.
+            Preparing the replay corpus takes about 30 minutes plus 1–2 minutes for storage, but it is reused across training seeds.
+            Amortized over four seeds and the full 2 × 10<sup>9</sup>-step budget per seed, the preparation overhead is under 3%.
+            Effective throughput remains about <strong>123K SPS, or 2.9× Reactive-PBT</strong>.
+          </p>
         </div>
         <figure class="fig">
-          <img src="images/sps.png" alt="Steps per second for Reactive-PBT, raw ReCord, and effective ReCord">
-          <figcaption><strong>Computational efficiency.</strong> Raw steps per second over 100M-step runs. Effective ReCord spreads the one-time replay preparation over the full 2×10<sup>9</sup>-step budget. Error bars are the standard deviation.</figcaption>
+          <img src="images/sps.png" alt="Throughput comparison of Reactive-PBT, raw ReCord, and effective ReCord across sampling methods" loading="lazy">
+          <figcaption><strong>Computational efficiency.</strong> Raw SPS is measured over 100M-step runs; effective SPS also accounts for one-time replay preparation amortized across four full-budget training seeds. Error bars denote standard deviation.</figcaption>
         </figure>
       </section>
 
-      <section class="earlier" id="workshop">
-        <h2>Earlier version</h2>
-        <p>
-          <em>ReCord: Replay Coordination for Safe and Robust Population-Based Training in Autonomous Driving</em> appeared at the Trustworthy AI for Good workshop at ICML 2026.
-          <a href="https://openreview.net/pdf?id=yf1h6EUF88">Workshop PDF</a>
-        </p>
-      </section>
-
-      <section id="cite">
+      <section class="earlier" id="cite">
         <p class="chapter">06</p>
-        <h2>Citation</h2>
-        <p>Fields stay empty until the citation is public.</p>
-        <pre class="bib" id="bib">@inproceedings{,
-  title     = {},
-  author    = {},
-  booktitle = {},
-  year      = {}
-}</pre>
-        <button type="button" class="bib-copy" id="bib-copy">Copy</button>
+        <h2>Paper and earlier version</h2>
+        <p>
+          The updated ReCord manuscript is currently available as a submission draft; a public citation will be added when released.
+          An earlier version, <em>ReCord: Replay Coordination for Safe and Robust Population-Based Training in Autonomous Driving</em>,
+          appeared at the Trustworthy AI for Good workshop at ICML 2026.
+          <a href="https://openreview.net/pdf?id=yf1h6EUF88" target="_blank" rel="noopener noreferrer">Read the workshop version</a>.
+        </p>
       </section>
     </div>
   </main>
@@ -242,29 +269,17 @@
   </footer>
   <script>
     (function () {
-      var el = document.getElementById("tc");
-      if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      var el = document.getElementById('tc');
+      if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       var start = performance.now();
       function frame(now) {
         var ms = (now - start) % 4400;
         var seconds = Math.floor(ms / 1000);
         var frames = Math.floor((ms % 1000) / 50);
-        el.textContent = "00:00:0" + seconds + ":" + String(frames).padStart(2, "0");
+        el.textContent = '00:00:0' + seconds + ':' + String(frames).padStart(2, '0');
         requestAnimationFrame(frame);
       }
       requestAnimationFrame(frame);
-    })();
-    (function () {
-      var button = document.getElementById("bib-copy");
-      var block = document.getElementById("bib");
-      if (!button || !block) return;
-      button.addEventListener("click", function () {
-        var text = block.textContent;
-        var done = function () { button.textContent = "Copied"; };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(done);
-        }
-      });
     })();
   </script>
 </body>
