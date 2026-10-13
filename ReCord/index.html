@@ -260,6 +260,15 @@
           appeared at the Trustworthy AI for Good workshop at ICML 2026.
           <a href="https://openreview.net/pdf?id=yf1h6EUF88" target="_blank" rel="noopener noreferrer">Read the workshop version</a>.
         </p>
+        <h3>Citation</h3>
+        <p>Fields stay empty until the citation is public.</p>
+        <pre class="bib" id="bib">@inproceedings{,
+  title     = {},
+  author    = {},
+  booktitle = {},
+  year      = {}
+}</pre>
+        <button type="button" class="bib-copy" id="bib-copy">Copy</button>
       </section>
     </div>
   </main>
@@ -281,6 +290,18 @@
       }
       requestAnimationFrame(frame);
     })();
+    var copy = document.getElementById('bib-copy');
+    if (copy) {
+      copy.addEventListener('click', function () {
+        var text = document.getElementById('bib').innerText;
+        navigator.clipboard.writeText(text).then(function () {
+          copy.textContent = 'Copied';
+          setTimeout(function () { copy.textContent = 'Copy'; }, 1500);
+        }).catch(function () {
+          copy.textContent = 'Copy';
+        });
+      });
+    }
   </script>
 </body>
 </html>
