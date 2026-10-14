@@ -1,170 +1,315 @@
- <head>
-	<title>Driving Probing</title>
+<!doctype html>
+<html lang="en">
+<head>
+	<title>What Probing Reveals about Autonomous Driving</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta property="og:title" content="What Probing Reveals about Autonomous Driving:">
 	<meta property="og:description" content="Linking Internal Prediction Errors to Ego Planning">
 	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script type="text/javascript">
-		function toggle(id) {
-			var e = document.getElementById(id);
-			if(e.style.display == 'block')
-				e.style.display = 'none';
-			else
-				e.style.display = 'block';
-		}
-	</script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;display=swap">
 </head>
-<div class="header" id="top">
-	<h1><span class="bold mcolor">What Probing Reveals about Autonomous Driving: </span><br/>Linking Internal Prediction Errors to Ego Planning </h1>
-	<h3><a class="bold default-color">Neurips 2026 <b style="color:#E46060">Poster</b></span><br/></h3>
-	<table class="authors">
-		<tbody>
-			<tr>
-				<td>
-					<h4>
-						<span class="author-line">
-						<a href="https://scholar.google.com/citations?user=qqM2jmkAAAAJ&hl=ko" class="nobreak">Hyeon-Chang Jeon</a><sup>1</sup>&ensp;
-						<a href="https://scholar.google.com/citations?user=QAkb7fgAAAAJ&hl=ko&oi=sra" class="nobreak">Kyungbeom Kim</a><sup>1</sup>&ensp;
-						<sup>†</sup><a href="https://www.eugenevinitsky.com/" class="nobreak">Eugene Vinitsky</a><sup>2</sup>&ensp;
-						<sup>†</sup><a href="https://cilab.gist.ac.kr/hp/people/" class="nobreak">Kyung-Joong Kim</a><sup>1</sup>
-						</span>
-						
-						<div class="affiliations">
-							<br/>
-							<sup>1</sup> GIST&ensp;
-							<sup>2</sup> New York University&ensp;
-						</div>
-						<br/>
-						<span class="authors-affiliation" style="font-size: 0.95em;"><sup>†</sup>Equal advising</span>
-					</h4>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<div class="links">
-		<a href="https://arxiv.org/pdf/2606.31106" class="btn"><i class="fa">&#xf1c1;</i>&ensp;Paper</a>
-		<a href="https://github.com/CILAB-MA/gpudrive_lab/tree/cilab/il_new" class="btn"><i class="fa fa-github"></i>&ensp;Code</a>
-	</div>
-</div>
-<div class="content">
-	<div class="tldr-hr"></div>
-	<div class="tldr-container">
-		<h2>TL;DR</h2> 
-		<p class="tldr-content">
-			<span class="bold">Strong closed-loop driving performance</span> does not necessarily imply <span class="bold"> robust prediction and planning</span>.
-		</p>
-	</div>
-	<div class="hr"></div>
-	<div class="figure" style="height: 350px; background-image: url(images/main.png);"></div>
-	<div style="margin: auto; margin-top: -24px;">
-		<p>
-			<span class="bold mcolor">Overview.</span>
-			High closed-loop performance alone does not guarantee that a driving policy has learned robust prediction and planning capabilities.
-			We therefore first establish <span class="bold">Data Scaling Laws</span> for BC and RL policies, showing that closed-loop performance improves as the training data scale increases.
-			We then study this through four analyses—<span class="bold">Linear Probing, Perturbed Simulation, Near-Collision, and Causal Intervention</span>—to examine how models represent surrounding vehicles, respond to perturbations, anticipate safety-critical interactions, and adapt ego plans when predictions are modified.
-		</p>
-	</div>
-	<div class="hr"></div>
-	<div>
-		<h2>Abstract</h2>
-		<p class="abstract">
-			To better understand the limits and weaknesses of driving policies, we focus on probing for forms of prediction, i.e., where surrounding vehicles will move next, and planning, i.e., understanding how to generate safe trajectories.
-			We focus on these two capabilities because they reflect behaviors expected of effective driving policies, and use their presence or absence to assess policy quality across data-driven behavior cloning and simulation-driven reinforcement learning policies.
-			To evaluate the presence of these capabilities, we investigate them as a function of scale, asking whether the closed-loop gains from larger datasets and longer simulation training reflect stronger prediction and planning or merely better behavioral heuristics.
-			We use linear probing and targeted perturbations in both imitation learning and reinforcement learning models to track when these internal signals emerge, plateau, or fail.
-			Despite good closed-loop performance, policies often fail to form timely surrounding-vehicle predictions during near-collision events, revealing a limitation in the predictive signals available for ego planning.
-			Finally, causal intervention shows that correcting mistaken predictions improves ego planning toward safer trajectories.
-		</p>
-	</div>
-	<div class="hr"></div>
-	<div>
-		<h2>Data Scaling Laws</h2>
-		<div class="figure" style="height: 200px; background-image: url(images/scaling_law.png);"></div>
-		<div style="margin: auto;">
-		<p class="architecture">
-			<span class="bold">(a) Closed-loop scaling:</span> We train BC and RL policies across increasing data scales and evaluate them with WOSAC metrics, including vehicle collision, off-road rate, and goal progress.
-			<span class="bold">(b) Performance is not explanation:</span> Both policy families exhibit clear scaling trends: BC improves and begins to plateau near the larger-data regime, while RL reaches lower collision and off-road rates and high goal progress. These gains motivate the probing analyses below, which ask whether better closed-loop scores correspond to stronger internal prediction and planning.
-		</p>
-	</div>
-	<div class="hr"></div>
-	<div>
-		<h2>Linear Probing</h2>
-		<div class="figure" style="height: 350px; background-image: url(images/linear_probing_f1.png);"></div>
-		<div class="figure" style="height: 400px; background-image: url(images/linear_probing.png);"></div>
-		<div style="margin: auto;">
-		<p class="architecture">
-			<span class="bold">Top figure:</span> We train linear probes on intermediate policy representations and compare them with raw-input probes. The F1 Macro and trajectory-type accuracy gaps show how much additional future-motion information is encoded inside the learned representation across data scales and prediction horizons. BC gains grow with scale and then plateau, RL keeps stronger probing gains across horizons, and SMART (IL) is especially stable for longer-horizon prediction, suggesting that different training paradigms preserve surrounding-vehicle information in different ways.
-			<span class="bold">Bottom figure:</span> We then relate the probing signal to future ego-other distance. As scale increases, the representation becomes more sensitive to vehicles that will remain close to the ego, but it still does not perfectly isolate the truly safety-critical agents.
-		</p>
-	</div>
-	<div class="hr"></div>
-	<div>
-		<h2>Perturbed Simulation</h2>
-		<div class="figure" style="height: 600px; background-image: url(images/perturbed_simulation.png);"></div>
-		<div class="figure-caption">
-			<p>
-				We randomly remove surrounding vehicles in closed-loop simulation to test whether policies robustly use interaction information or depend on the mere presence of other agents. If a model truly reasons about traffic, removing vehicles should make many scenes easier. Instead, performance can degrade in the single-AV setting, with worse off-road and progress trends, revealing a spurious reliance on surrounding vehicles that is only partially reduced by scale.
-			</p>
-		</div>
-	</div>
+<body>
+<header class="bar">
+	<a class="mark" href="#top">Driving Probing</a>
+	<nav class="bar-nav" aria-label="Sections">
+		<a href="#question">Closed loop</a>
+		<a href="#robust">Robust policy</a>
+		<a href="#probe">What we did</a>
+		<a href="#prediction">1 Probing</a>
+		<a href="#removal">2 Perturbed</a>
+		<a href="#decision">3 Linking</a>
+	</nav>
+</header>
 
-	<div class="hr"></div>
-	<div>
-		<h2>Near-Collision</h2>
-		<div class="figure" style="height: 400px; background-image: url(images/near_collision.png);"></div>
-		<div class="figure-caption">
-			<p>
-				We examine pre-collision windows with the surrounding-vehicle probe to ask whether policies identify the safety-critical vehicle early enough for avoidance. The heatmaps compare probing signal near collision against each model's average signal over the episode. Both BC and RL eventually emphasize the nearby colliding vehicle, but the strongest signal appears mainly in the final 10 steps before impact, indicating that relevant prediction often arrives too late to prevent the failure.
-			</p>
-		</div>
-	</div>
-	<div class="hr"></div>
-	<div>
-		<h2>Causal Intervention</h2>
-		<div class="figure" style="height: 400px; background-image: url(images/intervention.png);"></div>
-		<div class="figure-caption">
-			<p>
-				We intervene on internal surrounding-vehicle representations and observe how the decoded ego plan changes. In the adaptiveness setting, we perturb another vehicle's predicted future to create a potential conflict and test whether the ego plan avoids it. In the recovery setting, we replace an incorrect surrounding-vehicle prediction with the correct label and test whether the ego plan returns toward a safer, ground-truth-aligned trajectory. Across BC, RL, and IL, these interventions frequently change ego planning, showing that surrounding-vehicle predictions causally affect the planner.
-			</p>
-		</div>
-	</div>
-	<div class="hr"></div>
-	<div style="margin: auto; margin-bottom: 64px; text-align: center;">
-		<h2>Paper</h2>
-		<span class="vbold">What Probing Reveals about Autonomous Driving: Linking Internal Prediction Errors to Ego Planning</span><br/>
-		<span class="italic">Hyeon-Chang Jeon, Kyungbeom Kim, Eugene Vinitsky, Kyung-Joong Kim <br/></span><br/><br/>
-		<a href="https://openreview.net/forum?id=CfZLxT3zIZ">Openreview</a><br/><br/>
-		<div class="page" style="background-image: url(thumbnails/0.png);"></div>
-		<div class="page" style="background-image: url(thumbnails/1.png);"></div>
-		<div class="page" style="background-image: url(thumbnails/2.png);"></div>
-		<div class="page" style="background-image: url(thumbnails/3.png);"></div>
-		<div class="page" style="background-image: url(thumbnails/4.png);"></div>
-		<div class="page" style="background-image: url(thumbnails/5.png);"></div>
-		<div class="page" style="background-image: url(thumbnails/6.png);"></div>
-		<div class="page" style="background-image: url(thumbnails/7.png);"></div>
-		<div class="page" style="background-image: url(thumbnails/8.png);"></div>
-		<div class="page" style="background-image: url(thumbnails/9.png);"></div>
-	</div>
-	<div class="hr"></div>
-	<div style="padding-bottom: 64px; text-align: center;">
-		<h2>Citation</h2>
-		<p>
-			If you find our work useful, please consider citing the paper as follows:
+<main id="top">
+	<section class="hero">
+		<p class="kicker">NeurIPS 2026 · Poster</p>
+		<h1><span>What Probing Reveals about Autonomous Driving:</span><span>Linking Internal Prediction Errors to Ego Planning</span></h1>
+		<p class="authors">
+			<a href="https://scholar.google.com/citations?user=qqM2jmkAAAAJ&amp;hl=ko">Hyeon-Chang Jeon</a><sup>1</sup>
+			<span class="dot">·</span>
+			<a href="https://scholar.google.com/citations?user=QAkb7fgAAAAJ&amp;hl=ko&amp;oi=sra">Kyungbeom Kim</a><sup>1</sup>
+			<span class="dot">·</span>
+			<a href="https://www.eugenevinitsky.com/">Eugene Vinitsky</a><sup>2†</sup>
+			<span class="dot">·</span>
+			<a href="https://cilab.gist.ac.kr/hp/people/">Kyung-Joong Kim</a><sup>1†</sup>
 		</p>
-		<div id="bibtex-text" class="bibtexsection" onClick="window.getSelection().selectAllChildren(document.getElementById('bibtex-text'));">
-@article{jeon2026probing,
+		<p class="affil"><sup>1</sup> GIST &nbsp;·&nbsp; <sup>2</sup> New York University &nbsp;·&nbsp; <sup>†</sup>Equal advising</p>
+		<figure class="shot shot-main hero-shot" style="background-image: url(images/main.png);"></figure>
+		<p class="caption hero-cap">The ego’s ground truth keeps going straight. The original probe turns that plan after about ten steps, and the other vehicle’s future is wrong too. Once that prediction is corrected, the decoded ego plan shifts back toward the straight trajectory.</p>
+		<p class="lede"><span>Does good performance in closed-loop simulation<br>guarantee a robust driving policy?</span></p>
+		<div class="actions">
+			<span class="btn soon">Paper: coming soon</span>
+			<span class="btn soon">Code: coming soon</span>
+			<a class="btn" href="https://openreview.net/forum?id=CfZLxT3zIZ">OpenReview</a>
+			<a class="btn" href="#cite">BibTeX</a>
+		</div>
+	</section>
+
+	<section class="block" id="question">
+		<h2 class="point">Does a strong closed-loop score mean<br>the policy learned a generalized behavior?</h2>
+		<p>Previous papers<a class="cite" href="#ref1">1</a><a class="cite" href="#ref2">2</a> show that real driving logs are full of simple straight-driving scenes, and that a model can look strong from the ego’s own state alone. Closed-loop simulation is supposed to be the stricter test. BC and RL do improve there.</p>
+		<figure class="shot shot-scale" style="background-image: url(images/scaling_law.png);"></figure>
+		<p class="caption">Closed-loop metrics against dataset size. BC largely saturates beyond about 20K scenes. RL reaches lower collision and off-road rates, and about 99% goal progress at 10K.</p>
+		<p class="ask">Did the policy learn a generalized driving policy it can carry into a new situation, or a heuristic that works because the scene is ordinary?</p>
+	</section>
+
+	<section class="block" id="robust">
+		<h2 class="point">Robust driving policy</h2>
+		<p>Closed-loop performances do not say which of these the policy actually has. A robust policy should respond when the scene changes, tell a relevant car from an irrelevant one, and keep a plan for the moment that becomes dangerous.</p>
+		<div class="abilities">
+			<article class="ability">
+				<svg viewBox="0 0 240 180" aria-hidden="true">
+					<rect x="16" y="58" width="208" height="22" rx="2" fill="#efe6d6"/>
+					<rect x="36" y="62" width="34" height="14" rx="3" fill="#1d4e89"/>
+					<rect x="148" y="62" width="34" height="14" rx="3" fill="#c47a24"/>
+					<path d="M132 48h-22" stroke="#6b3412" stroke-width="2" fill="none"/>
+					<path d="M110 44l-8 4 8 4" fill="#6b3412"/>
+					<text x="36" y="98" fill="#6d5c4c" font-size="11" font-family="Inter, sans-serif">ego slows</text>
+					<text x="140" y="98" fill="#6d5c4c" font-size="11" font-family="Inter, sans-serif">lead car slows</text>
+				</svg>
+				<h3>Respond to a change</h3>
+				<p>A slowing lead car should slow the ego. A lead car that leaves should let the ego go.</p>
+			</article>
+			<article class="ability">
+				<svg viewBox="0 0 280 210" aria-hidden="true">
+					<polygon points="34,156 246,156 196,16 84,16" fill="#efe6d6"/>
+					<line x1="90" y1="156" x2="118" y2="16" stroke="#fffdf8" stroke-width="2" stroke-dasharray="6 7"/>
+					<line x1="140" y1="156" x2="140" y2="16" stroke="#fffdf8" stroke-width="2" stroke-dasharray="6 7"/>
+					<line x1="190" y1="156" x2="162" y2="16" stroke="#fffdf8" stroke-width="2" stroke-dasharray="6 7"/>
+					<g transform="rotate(15.5 68 111)">
+						<rect x="58" y="96" width="20" height="30" rx="4" fill="#c47a24"/>
+					</g>
+					<g transform="rotate(-15.5 185 102)">
+						<rect x="176" y="88" width="18" height="28" rx="4" fill="#c47a24"/>
+					</g>
+					<g transform="rotate(15.5 103 62)">
+						<rect x="96" y="52" width="14" height="20" rx="3" fill="#b9844a"/>
+					</g>
+					<g transform="rotate(-5.7 160 49)">
+						<rect x="154" y="40" width="12" height="18" rx="3" fill="#c9b48f"/>
+					</g>
+					<g transform="rotate(5.7 131 29)">
+						<rect x="126" y="22" width="10" height="14" rx="2" fill="#d9c7a6"/>
+					</g>
+					<g transform="rotate(5.7 120 136)">
+						<rect x="108" y="118" width="24" height="36" rx="4" fill="#1d4e89"/>
+					</g>
+					<text x="140" y="178" text-anchor="middle" fill="#6d5c4c" font-size="12" font-family="Inter, sans-serif">several cars on one highway</text>
+					<text x="140" y="196" text-anchor="middle" fill="#6d5c4c" font-size="12" font-family="Inter, sans-serif">near ones are large, far ones shrink</text>
+				</svg>
+				<h3>Tell cars apart</h3>
+				<p>A nearby car that can enter the path matters. A distant car with no bearing on the plan does not.</p>
+			</article>
+			<article class="ability">
+				<svg viewBox="0 0 280 210" aria-hidden="true">
+					<polygon points="40,152 240,152 196,22 84,22" fill="#efe6d6"/>
+					<line x1="140" y1="152" x2="140" y2="22" stroke="#fffdf8" stroke-width="2" stroke-dasharray="6 7"/>
+					<path d="M95 106 L108 70" stroke="#b7cbb8" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
+					<path d="M95 106 C88 90, 70 86, 74 60" stroke="#2f7d4a" stroke-width="2.4" fill="none" stroke-dasharray="5 4"/>
+					<g transform="rotate(-32 154 74)">
+						<rect x="143" y="58" width="22" height="34" rx="4" fill="#c47a24"/>
+					</g>
+					<path d="M146 58 C132 48, 116 42, 102 34" stroke="#c47a24" stroke-width="2.2" fill="none" stroke-dasharray="4 3"/>
+					<g transform="rotate(-48 102 34)">
+						<polygon points="102,24 93,40 111,40" fill="#c47a24"/>
+					</g>
+					<g transform="rotate(9.6 95 124)">
+						<rect x="83" y="106" width="24" height="36" rx="4" fill="#1d4e89"/>
+					</g>
+					<text x="140" y="176" text-anchor="middle" fill="#6d5c4c" font-size="12" font-family="Inter, sans-serif">a car cuts into the ego lane</text>
+					<text x="140" y="194" text-anchor="middle" fill="#6d5c4c" font-size="12" font-family="Inter, sans-serif">the plan shifts clear of it</text>
+				</svg>
+				<h3>Keep a plan for the critical case</h3>
+				<p>The policy should stay ready for an abrupt cut-in, not only for the ordinary scene it has already seen.</p>
+			</article>
+		</div>
+	</section>
+
+	<section class="block" id="probe">
+		<h2 class="point">Beyond the existed closed-loop evaluation, use perturbed simulation and linear probe.</h2>
+		<div class="defbox">
+			<p><span>Prediction.</span> Where the surrounding vehicles will move next.</p>
+			<p><span>Planning.</span> How the ego’s future plan changes</p>
+		</div>
+		<p>A linear probe reads whether prediction and planning are already in the policy’s representation, for both behavior cloning and reinforcement learning. We find three things.</p>
+		<ol class="findings">
+			<li><a href="#prediction"><span class="kw">Linear Probe with scaling.</span> Surrounding-vehicle prediction is insufficient.</a></li>
+			<li><a href="#removal"><span class="kw">Perturbed Simulation with removal by distance.</span> Not generzlied in single-AV driving, and performance changes.</a></li>
+			<li><a href="#decision"><span class="kw">Linking the internal prediction and planning to the decision.</span> Recover the prediction error and the plan change.</a></li>
+		</ol>
+	</section>
+
+	<section class="block" id="prediction">
+		<p class="step"><b>1</b> Linear Probe with scaling</p>
+		<h2 class="point">Surrounding-vehicle prediction is insufficient.</h2>
+		<figure class="shot shot-f1" style="background-image: url(images/linear_probing_f1.png);"></figure>
+		<p class="caption">LP − Raw, so BC and RL can be compared even though they do not see the same input. Higher is a stronger linear readout.</p>
+		<p>The overall probe score climbs with scale. The climb is uneven. Straight and uncategorized futures account for most of the gain, while turns and reverses stay difficult. For BC the gain rises through about 10K scenes and then plateaus. RL does not follow that curve: from 5K to 10K, driving and the ego-plan probe improve while the surrounding-vehicle probe gets weaker.</p>
+		<figure class="shot shot-dist" style="background-image: url(images/linear_probing.png);"></figure>
+		<p class="caption">Probe score against the other car’s future distance from the ego. A negative slope means closer cars are read more strongly.</p>
+		<p>The probe does learn to care less about far cars. At 100 scenes the link to future distance is weak. At 10K and 80K it is clearly negative. Among the cars that stay close, though, one that is approaching and one that is moving away look alike. More data has not yet said which nearby car will matter.</p>
+	</section>
+
+	<section class="block" id="removal">
+		<p class="step"><b>2</b> Perturbed Simulation with removal by distance.</p>
+		<h2 class="point">Not generzlied in single-AV driving, and performance changes.</h2>
+		<figure class="shot shot-partner" style="background-image: url(images/partner_near.png);"></figure>
+		<p class="caption">Nearest-first removal. Adjusted collision is Veh-Coll / (1 − p), so having fewer cars to hit is not counted as safer driving.</p>
+		<figure class="shot shot-partner" style="background-image: url(images/partner_far.png);"></figure>
+		<p class="caption">Farthest-first removal. The adjusted vehicle-collision rate is the left-hand panel. Goal progress barely moves as distant cars disappear.</p>
+		<p>The two removal strategies produce a clear asymmetry. Farthest-first removal has little effect on goal progress through high removal ratios, indicating relative insensitivity to distant-agent context. In contrast, nearest-first removal increasingly degrades goal progress at high removal ratios, even as the adjusted vehicle-collision rate decreases. This suggests that the degradation reflects brittleness to the removal of nearby-agent context rather than increased interaction difficulty. Interestingly, the adjusted vehicle collision rate increases sharply under farthest-first removal, even though the farthest agent has little more impact on collisions than a nearby one.</p>
+		<p>Scenes that naturally contain only the ego are already worse than ordinary scenes. Stripping cars out of a scene that began as interactive makes performance worse still. The policy generalizes poorly to the single-vehicle case.</p>
+	</section>
+
+	<section class="block" id="decision">
+		<p class="step"><b>3</b> Linking the internal prediction and planning to the decision.</p>
+		<h2 class="point">Recover the prediction error and the plan change.</h2>
+		<figure class="shot shot-near" style="background-image: url(images/near_collision.png);"></figure>
+		<p class="caption">Each cell is the probe in the pre-collision window, compared with the average over the whole episode. Cells with fewer than 100 collision cases are gray.</p>
+		<p>An early warning would light up 40, 30, or 20 steps before impact. For both BC and RL the signal stays weak until the last 10 steps, when it concentrates on the cars near the ego. The relevant car becomes readable only once the response is already late. RL collisions are rarer, and the same late peak remains.</p>
+		<p>We then edit the surrounding-vehicle representation along the probe and decode the ego plan again. Two measures say whether that edit reaches the decision.</p>
+		<div class="measures">
+			<article class="ability">
+				<svg viewBox="0 0 320 188" aria-hidden="true">
+					<rect x="16" y="78" width="200" height="28" rx="2" fill="#efe6d6"/>
+					<rect x="24" y="84" width="32" height="16" rx="3" fill="#1d4e89"/>
+					<rect x="168" y="36" width="30" height="14" rx="3" fill="#c47a24"/>
+					<path d="M183 50 C170 70, 140 86, 100 92" stroke="#c47a24" stroke-width="2" stroke-dasharray="5 3" fill="none"/>
+					<path d="M56 92 C100 96, 150 100, 210 108" stroke="#c9b48f" stroke-width="2" fill="none"/>
+					<path d="M56 92 C110 70, 170 58, 250 52" stroke="#1d4e89" stroke-width="2.5" fill="none"/>
+					<path d="M188 108 V58" stroke="#6b3412" stroke-width="1.25"/>
+					<path d="M184 104 h8 M184 62 h8" stroke="#6b3412" stroke-width="1.25"/>
+					<text x="196" y="86" fill="#6b3412" font-size="12" font-family="Inter, sans-serif">CAP</text>
+					<text x="16" y="132" fill="#6d5c4c" font-size="11" font-family="Inter, sans-serif">orange: induced conflicting future</text>
+					<text x="16" y="148" fill="#6d5c4c" font-size="11" font-family="Inter, sans-serif">gray: ego plan before the edit</text>
+					<text x="16" y="164" fill="#6d5c4c" font-size="11" font-family="Inter, sans-serif">blue: ego plan after the edit, farther from the conflict</text>
+				</svg>
+				<h3>CAP, adaptiveness</h3>
+				<p>We induce a conflicting future for the other car. Positive CAP means the decoded ego plan moved farther from that future than a random edit of the same size.</p>
+			</article>
+			<article class="ability">
+				<svg viewBox="0 0 320 188" aria-hidden="true">
+					<rect x="16" y="86" width="230" height="24" rx="2" fill="#efe6d6"/>
+					<rect x="24" y="90" width="30" height="16" rx="3" fill="#1d4e89"/>
+					<circle cx="236" cy="98" r="11" fill="none" stroke="#2f7d4a" stroke-width="2"/>
+					<circle cx="236" cy="98" r="3" fill="#2f7d4a"/>
+					<path d="M54 98 H128" stroke="#c9b48f" stroke-width="2.5" fill="none"/>
+					<circle cx="128" cy="98" r="3.5" fill="#c9b48f"/>
+					<path d="M54 98 H214" stroke="#1d4e89" stroke-width="2.5" fill="none"/>
+					<path d="M128 78 V118" stroke="#6b3412" stroke-width="1.25"/>
+					<path d="M214 78 V118" stroke="#6b3412" stroke-width="1.25"/>
+					<path d="M128 74 H214" stroke="#6b3412" stroke-width="1.25"/>
+					<text x="152" y="68" fill="#6b3412" font-size="12" font-family="Inter, sans-serif">GPG</text>
+					<text x="228" y="78" fill="#2f7d4a" font-size="11" font-family="Inter, sans-serif">goal</text>
+					<text x="16" y="140" fill="#6d5c4c" font-size="11" font-family="Inter, sans-serif">gray: goal progress before the correction</text>
+					<text x="16" y="156" fill="#6d5c4c" font-size="11" font-family="Inter, sans-serif">blue: goal progress after the prediction is fixed</text>
+					<text x="16" y="172" fill="#6d5c4c" font-size="11" font-family="Inter, sans-serif">GPG is the gain between the two</text>
+				</svg>
+				<h3>GPG, recovery</h3>
+				<p>We correct the surrounding-vehicle prediction. GPG is goal progress after the edit minus goal progress before it. Positive means the ego finished closer to its goal.</p>
+			</article>
+		</div>
+		<div class="table-wrap">
+			<table>
+				<thead>
+					<tr>
+						<th></th>
+						<th></th>
+						<th>Causal intervention</th>
+						<th>Random control</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th rowspan="4">BC</th>
+						<td>Separation from the induced conflict (CAP)</td>
+						<td>2.61 m</td>
+						<td>0.92 m</td>
+					</tr>
+					<tr>
+						<td>Change in the ego plan (ADE)</td>
+						<td>3.67 m</td>
+						<td>1.91 m</td>
+					</tr>
+					<tr>
+						<td>Goal-progress recovery</td>
+						<td>+4.8 pp</td>
+						<td>+0.9 pp</td>
+					</tr>
+					<tr>
+						<td>When baseline goal progress is at most 0.5</td>
+						<td>+21.2 pp</td>
+						<td>+9.6 pp</td>
+					</tr>
+					<tr>
+						<th rowspan="4">RL</th>
+						<td>Separation from the induced conflict (CAP)</td>
+						<td>0.022 m</td>
+						<td>0.010 m</td>
+					</tr>
+					<tr>
+						<td>Change in the ego plan (ADE)</td>
+						<td>0.280 m</td>
+						<td>0.357 m</td>
+					</tr>
+					<tr>
+						<td>Probe matches the edit</td>
+						<td>58.7% of scenes</td>
+						<td>8.2%</td>
+					</tr>
+					<tr>
+						<td>Recovery on low-progress scenes that change</td>
+						<td>0.413</td>
+						<td>0.313</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<p>For BC, the real edit moves the plan away from the induced conflict and lifts goal progress, including on the scenes that were already failing. Safety does not follow that recovery. For RL, the representation follows the edit and the plan mostly does not. The internal state changes. The decision often does not.</p>
+		<figure class="shot shot-fix" style="background-image: url(images/intervention_iclr.png);"></figure>
+		<p class="caption">Examples of the edit. Correcting the surrounding-vehicle probe shifts the decoded BC plan. The RL plan changes less.</p>
+	</section>
+
+	<section class="block" id="refs">
+		<h2>References</h2>
+		<ol class="refs">
+			<li id="ref1">Jiang-Tian Zhai et al. <a href="https://arxiv.org/abs/2305.10430">Rethinking the Open-Loop Evaluation of End-to-End Autonomous Driving in nuScenes</a>. arXiv:2305.10430, 2023.</li>
+			<li id="ref2">Zhiqi Li et al. <a href="https://arxiv.org/abs/2312.03031">Is Ego Status All You Need for Open-Loop End-to-End Autonomous Driving?</a> arXiv:2312.03031, 2023.</li>
+		</ol>
+	</section>
+
+	<section class="block" id="cite">
+		<h2>BibTeX</h2>
+		<div class="bib-wrap">
+			<pre class="bib" id="bib">@article{jeon2026probing,
   title={What Probing Reveals about Autonomous Driving: Linking Internal Prediction Errors to Ego Planning},
   author={Jeon, Hyeonchang and Kim, Kyungbeom and Vinitsky, Eugene and Kim, Kyung-Joong},
   journal={arXiv preprint arXiv:2606.31106},
   year={2026}
-}
+}</pre>
+			<button type="button" class="btn" id="bib-copy">Copy</button>
 		</div>
-	</div>
-</div>
+	</section>
+</main>
+
 <footer>
-<a href="index.html#top"><i class="fa fa-arrow-up"></i><br/>Return to top</a>
-<div style="padding-top: 48px;">
-	<span>Website based on <a href="https://sonyresearch.github.io/simba/">SimBa</a>.</span>
-</div>
+	<a href="https://openreview.net/forum?id=CfZLxT3zIZ">OpenReview</a>
+	<span>Code: coming soon</span>
+	<a href="#cite">BibTeX</a>
+	<a href="#top">Back to top</a>
 </footer>
+<script>
+	var copy = document.getElementById('bib-copy');
+	copy.addEventListener('click', function () {
+		var text = document.getElementById('bib').innerText;
+		navigator.clipboard.writeText(text).then(function () {
+			copy.textContent = 'Copied';
+			setTimeout(function () { copy.textContent = 'Copy'; }, 1500);
+		}).catch(function () {
+			copy.textContent = 'Copy';
+		});
+	});
+</script>
+</body>
+</html>
