@@ -426,13 +426,13 @@ html:not(.js) .menu-toggle{display:none}
     <div class="section-heading">
       <span class="eyebrow">Approach</span>
       <h2 id="approach-title">Prediction and planning with probes, and perturbed simulation</h2>
-      <p>We use linear probing, perturbed closed-loop simulation, and targeted interventions to examine how prediction and planning are accessible in behavior cloning and reinforcement learning policies.</p>
+      <p>We use linear probing, perturbed closed-loop simulation, and causal interventions to examine how prediction and planning are accessible in behavior cloning and reinforcement learning policies.</p>
     </div>
     <p class="prose">Linear probes measure information that is linearly accessible from the policy’s representation. We investigate three connected questions.</p>
     <ol class="study-outline">
       <li><a href="#prediction"><div class="outline-top"><span>01</span><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></div><h3>Linear probing with scale</h3><p>Surrounding-vehicle prediction remains imperfect.</p></a></li>
       <li><a href="#removal"><div class="outline-top"><span>02</span><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></div><h3>Distance-ordered removal</h3><p>Limited generalization to single-AV settings and sensitivity to nearby context.</p></a></li>
-      <li><a href="#decision"><div class="outline-top"><span>03</span><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></div><h3>Prediction and planning</h3><p>When prediction signals emerge, and how targeted interventions change ego planning.</p></a></li>
+      <li><a href="#decision"><div class="outline-top"><span>03</span><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></div><h3>Prediction and planning</h3><p>When prediction signals emerge, and how causal interventions change ego planning.</p></a></li>
     </ol>
   </section>
 
@@ -500,7 +500,7 @@ html:not(.js) .menu-toggle{display:none}
     <div class="section-heading section-numbered">
       <span class="section-number" aria-hidden="true">03</span>
       <span class="eyebrow">Prediction and planning</span>
-      <h2 id="decision-title">Prediction signals emerge late, and targeted interventions change ego planning</h2>
+      <h2 id="decision-title">Prediction signals emerge late, and causal interventions change ego planning</h2>
     </div>
     <div class="subheading"><h3>Near-collision analysis</h3></div>
     <p class="prose">Early anticipation of a dangerous interaction would appear as a strong positive probing signal at 40, 30, or 20 steps before collision. For both BC and RL, the strongest signal appears mainly in the final 10 steps and is concentrated near the ego.</p>
